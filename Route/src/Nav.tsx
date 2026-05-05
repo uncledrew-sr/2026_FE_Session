@@ -1,85 +1,84 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function Nav() {
+  function getLinkStyle({ isActive }) { // isActive는 True/False
+    return isActive ? styles.linkActive : styles.link 
+      // 활성화된 링크에만 linkActive 스타일 적용
+  }
+
   return (
-    <div style={styles.nav}>
-      <Link to="/" style={styles.link}>
-        홈
-      </Link>
-      <Link to="/about" style={styles.link}>
-        소개
-      </Link>
-      <Link to="/post/1" style={styles.link}>
-        게시글 1
-      </Link>
-      <Link to="/post/2" style={styles.link}>
-        게시글 2
-      </Link>
-      <Link to="/post/999" style={styles.link}>
-        게시글 999
-      </Link>
-      <Link to="/없는페이지" style={styles.link}>
-        없는 페이지
-      </Link>
-    </div>
+    <header style={styles.header}>
+      <div style={styles.inner}>
+        <Link to="/" style={styles.brand}>
+          <span style={styles.brandDot}>●</span>
+          <span style={styles.brandText}>Route</span>
+        </Link>
+
+        <nav style={styles.menu}>
+          <NavLink to="/" end style={getLinkStyle}>홈</NavLink>
+          <NavLink to="/about" style={getLinkStyle}>소개</NavLink>
+          <NavLink to="/post/1" style={getLinkStyle}>게시글 1</NavLink>
+          <NavLink to="/post/2" style={getLinkStyle}>게시글 2</NavLink>
+          <NavLink to="/post/999" style={getLinkStyle}>게시글 999</NavLink>
+          <NavLink to="/없는페이지" style={getLinkStyle}>없는 페이지</NavLink>
+        </nav>
+      </div>
+    </header>
   );
 }
 export default Nav;
 
-
 const styles = {
-  wrap: {
-    minHeight: "100vh",
-    background: "#0f0f0f",
-    color: "#f0f0f0",
-    fontFamily: "monospace",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "1.5rem",
-    padding: "2rem",
+  header: {
+    width: "100%",
+    background: "rgba(11,14,17,0.85)",
+    backdropFilter: "blur(8px)",
+    borderBottom: "1px solid #2b3139",
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
   },
-  nav: {
+  inner: {
+    maxWidth: "1120px",
+    margin: "0 auto",
+    padding: "14px 24px",
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     gap: "1rem",
-    marginBottom: "1rem",
+  },
+  brand: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    textDecoration: "none",
+  },
+  brandDot: {
+    color: "#FCD535",
+    fontSize: "14px",
+  },
+  brandText: {
+    color: "#eaecef",
+    fontWeight: 700,
+    fontSize: "16px",
+    letterSpacing: "0.02em",
+  },
+  menu: {
+    display: "flex",
+    gap: "0.25rem",
+    flexWrap: "wrap",
   },
   link: {
-    color: "#FCD535",
+    color: "#b7bdc6",
     textDecoration: "none",
-    fontSize: "14px",
-    padding: "6px 14px",
-    border: "1px solid #FCD535",
-    borderRadius: "4px",
-  },
-  title: {
-    fontSize: "2.5rem",
-    fontWeight: "bold",
-    margin: 0,
-  },
-  sub: {
-    fontSize: "1rem",
-    color: "#888",
-    margin: 0,
-  },
-  btn: {
-    marginTop: "1rem",
-    padding: "10px 24px",
-    background: "#FCD535",
-    color: "#0f0f0f",
-    border: "none",
+    fontSize: "13px",
+    padding: "6px 12px",
     borderRadius: "6px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    fontSize: "14px",
+    transition: "all 0.15s ease",
   },
-  badge: {
-    fontSize: "12px",
-    background: "#1e1e1e",
-    border: "1px solid #333",
-    padding: "4px 10px",
-    borderRadius: "99px",
-    color: "#888",
+  linkActive: {
+    color: "#0b0e11",
+    background: "#FCD535",
+    fontWeight: 600,
   },
-};
+} as const;
