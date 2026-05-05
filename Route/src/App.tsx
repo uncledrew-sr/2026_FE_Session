@@ -7,6 +7,7 @@ import Nav from './Nav';
 import Footer from './Footer';
 
 function App() {
+  
   return (
     <BrowserRouter>
       <div style={styles.layout}>
